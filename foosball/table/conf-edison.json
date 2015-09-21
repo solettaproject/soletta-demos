@@ -1,0 +1,49 @@
+{
+ "$schema": "http://solettaproject.github.io/soletta/schemas/config.schema",
+ "nodetypes": [
+  {
+   "name": "DetectorLightSensor",
+   "options": {
+    "device": 1,
+    "pin": 0,
+    "poll_timeout": 50
+   },
+   "type": "aio/reader"
+  },
+  {
+   "name": "DetectorLed",
+   "options": {
+    "pin": 130
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "MaxLed5",
+   "options": {
+    "pin": 128
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "MaxLed10",
+   "options": {
+    "pin": 12
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "MaxButton",
+   "options": {
+    "pin": 129
+   },
+   "type": "gpio/reader"
+  },
+  {
+   "name": "MainResetButton",
+   "options": {
+    "pin": 13
+   },
+   "type": "gpio/reader"
+  }
+ ]
+}
