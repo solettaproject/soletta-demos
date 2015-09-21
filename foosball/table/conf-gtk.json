@@ -1,0 +1,49 @@
+{
+ "$schema": "http://solettaproject.github.io/soletta/schemas/config.schema",
+ "nodetypes": [
+  {
+   "name": "DetectorLightSensor",
+   "options": {
+    "range": {
+     "max": 4096
+    }
+   },
+   "type": "gtk/slider"
+  },
+  {
+   "name": "DetectorLed",
+   "options": {
+    "rgb": {
+     "red": 255
+    }
+   },
+   "type": "gtk/led"
+  },
+  {
+   "name": "MaxLed5",
+   "options": {
+    "rgb": {
+     "red": 255
+    }
+   },
+   "type": "gtk/led"
+  },
+  {
+   "name": "MaxLed10",
+   "options": {
+    "rgb": {
+     "green": 255
+    }
+   },
+   "type": "gtk/led"
+  },
+  {
+   "name": "MaxButton",
+   "type": "gtk/toggle"
+  },
+  {
+   "name": "MainResetButton",
+   "type": "gtk/pushbutton"
+  }
+ ]
+}
