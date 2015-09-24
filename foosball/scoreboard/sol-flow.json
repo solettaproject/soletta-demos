@@ -1,0 +1,46 @@
+{
+ "$schema": "http://solettaproject.github.io/soletta/schemas/config.schema",
+ "nodetypes": [
+  {
+   "name": "ScoreLed",
+   "type": "gtk/led-7seg"
+  },
+  {
+   "name": "RedTransistor",
+   "options": {
+    "rgb": {
+     "blue": 255
+    }
+   },
+   "type": "gtk/led"
+  },
+  {
+   "name": "YellowTransistor",
+   "options": {
+    "rgb": {
+     "blue": 255
+    }
+   },
+   "type": "gtk/led"
+  },
+  {
+   "name": "RedWinLed",
+   "options": {
+    "rgb": {
+     "red": 255
+    }
+   },
+   "type": "gtk/led"
+  },
+  {
+   "name": "YellowWinLed",
+   "options": {
+    "rgb": {
+     "red": 255,
+     "green": 255
+    }
+   },
+   "type": "gtk/led"
+  }
+ ]
+}
