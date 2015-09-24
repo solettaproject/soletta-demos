@@ -1,0 +1,46 @@
+{
+ "$schema": "http://solettaproject.github.io/soletta/schemas/config.schema",
+ "nodetypes": [
+  {
+   "name": "ScoreLed",
+   "options": {
+    "pin_a": 131,
+    "pin_b": 128,
+    "pin_c": 12,
+    "pin_d": 129,
+    "pin_e": 13,
+    "pin_f": 182,
+    "pin_g": 48
+   },
+   "type": "led-7seg/led"
+  },
+  {
+   "name": "RedTransistor",
+   "options": {
+    "pin": 49
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "YellowTransistor",
+   "options": {
+    "pin": 183
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "RedWinLed",
+   "options": {
+    "pin": 41
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "YellowWinLed",
+   "options": {
+    "pin": 43
+   },
+   "type": "gpio/writer"
+  }
+ ]
+}

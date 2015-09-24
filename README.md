@@ -37,5 +37,5 @@ On table terminal run:
 On scoreboad terminal run:
 
     $ export SOL_MACHINE_ID="666a3d6a9d194a23b90a24573558d2f4"
-    $ export SOL_FLOW_MODULE_RESOLVER_CONFFILE=foosball/table/conf-gtk.json
+    $ export SOL_FLOW_MODULE_RESOLVER_CONFFILE=foosball/scoreboard/conf-gtk.json
     $ sol-fbp-runner foosball/scoreboard/main.fbp
