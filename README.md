@@ -31,7 +31,7 @@ simulate a table and a scoreboard.
 
 On table terminal run:
 
-    $ export SOL_FLOW_MODULE_RESOLVER_CONFFILE=foosball/table/conf-gtk.json
+    $ export SOL_FLOW_MODULE_RESOLVER_CONFFILE=foosball/table/sol-flow.json
     $ sol-fbp-runner foosball/table/main.fbp
 
 On scoreboad terminal run:
