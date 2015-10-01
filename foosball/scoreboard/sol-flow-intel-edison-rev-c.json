@@ -10,35 +10,37 @@
     "pin_d": 129,
     "pin_e": 13,
     "pin_f": 182,
-    "pin_g": 48
+    "pin_g": 48,
+    "pin_dp": 49,
+    "common_cathode": false
    },
    "type": "led-7seg/led"
   },
   {
    "name": "RedTransistor",
    "options": {
-    "pin": 49
+    "pin": 183
    },
    "type": "gpio/writer"
   },
   {
    "name": "YellowTransistor",
    "options": {
-    "pin": 183
+    "pin": 41
    },
    "type": "gpio/writer"
   },
   {
    "name": "RedWinLed",
    "options": {
-    "pin": 41
+    "pin": 43
    },
    "type": "gpio/writer"
   },
   {
    "name": "YellowWinLed",
    "options": {
-    "pin": 43
+    "pin": 42
    },
    "type": "gpio/writer"
   }
