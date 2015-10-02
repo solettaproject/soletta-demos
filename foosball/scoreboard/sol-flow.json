@@ -41,6 +41,13 @@
     }
    },
    "type": "gtk/led"
+  },
+  {
+   "name": "ScoreTimer",
+   "options": {
+    "interval": 1000
+   },
+   "type": "timer"
   }
  ]
 }

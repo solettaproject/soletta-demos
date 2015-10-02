@@ -43,6 +43,13 @@
     "pin": 42
    },
    "type": "gpio/writer"
+  },
+  {
+   "name": "ScoreTimer",
+   "options": {
+    "interval": 8
+   },
+   "type": "timer"
   }
  ]
 }

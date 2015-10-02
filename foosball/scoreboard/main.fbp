@@ -36,7 +36,7 @@
 # so both are quickly updated.
 
 ScoreBoard(score-counter/server-score-counter)
-Timer(timer:interval=300)
+Timer(ScoreTimer)
 LedToggle(boolean/toggle)
 InitialScore(constant/int:value=0)
 InitialState(constant/boolean:value=false)
