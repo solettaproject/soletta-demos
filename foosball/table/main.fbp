@@ -31,14 +31,14 @@
 
 # This is the main flow used in the table of foosball.
 # It controls goals per match, reset scores, and communicates with
-# scoreboard via OIC. When a team wins it waits for 5 seconds before
+# scoreboard via OIC. When a team wins it waits for 3 seconds before
 # starting next match.
 
 DECLARE=ScoreCounter:fbp:score-counter.fbp
 DECLARE=GoalsMax:fbp:goals-max.fbp
 
-RedScore(ScoreCounter)
-YellowScore(ScoreCounter)
+RedScore(ScoreCounter:sensor_device=1,sensor_pin=0,led_pin=130)
+YellowScore(ScoreCounter:sensor_device=1,sensor_pin=0,led_pin=131)
 Max(GoalsMax)
 
 ResetButton(MainResetButton)

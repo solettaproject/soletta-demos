@@ -41,6 +41,10 @@
 OUTPORT=Score.OUT:SCORE
 INPORT=Score.RESET:RESET
 
+OPTION=Goal.led_pin:led_pin
+OPTION=Goal.sensor_pin:sensor_pin
+OPTION=Goal.sensor_device:sensor_device
+
 DECLARE=GoalDetector:fbp:goal-detector.fbp
 
 Score(int/accumulator)

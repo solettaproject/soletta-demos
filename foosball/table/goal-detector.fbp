@@ -41,6 +41,10 @@
 
 OUTPORT=Goal.OUT:GOAL
 
+OPTION=Led.pin:led_pin
+OPTION=Sensor.pin:sensor_pin
+OPTION=Sensor.device:sensor_device
+
 # Turn led on
 Led(DetectorLed)
 True(constant/boolean:value=true)

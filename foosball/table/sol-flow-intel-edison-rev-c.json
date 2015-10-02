@@ -4,7 +4,7 @@
   {
    "name": "DetectorLightSensor",
    "options": {
-    "device": 1,
+    "device": 0,
     "pin": 0,
     "poll_timeout": 50
    },
@@ -13,7 +13,7 @@
   {
    "name": "DetectorLed",
    "options": {
-    "pin": 130
+    "pin": 0
    },
    "type": "gpio/writer"
   },
