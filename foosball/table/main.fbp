@@ -37,8 +37,8 @@
 DECLARE=ScoreCounter:fbp:score-counter.fbp
 DECLARE=GoalsMax:fbp:goals-max.fbp
 
-RedScore(ScoreCounter:sensor_device=1,sensor_pin=0,led_pin=130)
-YellowScore(ScoreCounter:sensor_device=1,sensor_pin=0,led_pin=131)
+RedScore(RedScoreCounter)
+YellowScore(YellowScoreCounter)
 Max(GoalsMax)
 
 ResetButton(MainResetButton)

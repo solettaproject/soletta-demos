@@ -48,6 +48,24 @@
     "interval": 1000
    },
    "type": "timer"
+  },
+  {
+   "name": "RedScoreCounter",
+   "options": {
+    "sensor_pin": 0,
+    "sensor_device": 0,
+    "led_pin": 0
+   },
+   "type": "ScoreCounter"
+  },
+  {
+   "name": "YellowScoreCounter",
+   "options": {
+    "sensor_pin": 0,
+    "sensor_device": 0,
+    "led_pin": 0
+   },
+   "type": "ScoreCounter"
   }
  ]
 }
