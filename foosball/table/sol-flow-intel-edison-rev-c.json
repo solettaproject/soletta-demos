@@ -44,6 +44,24 @@
     "pin": 13
    },
    "type": "gpio/reader"
+  },
+  {
+   "name": "RedScoreCounter",
+   "options": {
+    "sensor_pin": 0,
+    "sensor_device": 1,
+    "led_pin": 130
+   },
+   "type": "ScoreCounter"
+  },
+  {
+   "name": "YellowScoreCounter",
+   "options": {
+    "sensor_pin": 1,
+    "sensor_device": 1,
+    "led_pin": 131
+   },
+   "type": "ScoreCounter"
   }
  ]
 }
