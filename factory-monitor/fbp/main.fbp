@@ -1,0 +1,148 @@
+#!/usr/bin/env sol-fbp-runner
+# This file is part of the Soletta Project
+#
+# Copyright (C) 2016 Intel Corporation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+#   * Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#   * Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in
+#     the documentation and/or other materials provided with the
+#     distribution.
+#   * Neither the name of Intel Corporation nor the names of its
+#     contributors may be used to endorse or promote products derived
+#     from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# This is the main flow of the factory-monitor.
+# It has an OIC server - more details about it on server fbp, currently
+# only 'server-dummy.fbp'.
+# Its OIC client custom-node observers a list of servers, showing
+# temperature readings of them in a rouding roibin fashion. When
+# one of the servers outputs 'FAILURE' alert, client shows corresponding
+# message. Then, one is expected to use Buttons to decide what to do
+# regarding the failure: Dismiss it or report it.
+# To dismiss, one just needs to press btn1. If press btn2, a selector form
+# will be shown to choose a name to report the failure. In the form, btn1
+# chooses a name, and btn2 circle the list of names.
+
+scanner(monitor/client-temperature)
+temperature_pool(custom-node/server-pool)
+timer_scan(timer:interval=5000)
+timer_display(timer:interval=3000)
+
+lcd(Display)
+led(Led)
+#buzzer(Buzzer:tune="ccggaa|111122|300")
+
+raw_btn1(Btn1)
+raw_btn2(Btn2)
+
+btn1(switcher/empty)
+raw_btn1 OUT -> PULSE_IF_TRUE _(converter/boolean-to-empty) OUT -> IN[0] btn1
+
+btn2(switcher/empty)
+raw_btn2 OUT -> PULSE_IF_TRUE _(converter/boolean-to-empty) OUT -> IN[0] btn2
+
+normal_msg(string/concatenate)
+_(constant/string:value="\n") OUT -> IN[1] normal_msg
+_(constant/string:value=" C") OUT -> IN[3] normal_msg
+
+error_msg(string/concatenate)
+_(constant/string:value="Failure on ") OUT -> IN[0] error_msg
+
+supervisor_selector(form/selector:rows=2,columns=16,circular=true)
+supervisors(test/string-generator:sequence="Denethor Saruman Sauron Morgoth --Cancel")
+supervisors OUT -> ADD_ITEM supervisor_selector
+
+msg_switcher(switcher/string:keep_state=true)
+normal_msg OUT -> IN[0] msg_switcher
+error_msg OUT -> IN[1] msg_switcher
+supervisor_selector STRING -> IN[2] msg_switcher
+
+#Start with led OFF and 'Scanning...' message
+_(constant/boolean:value=false) OUT -> IN led
+_(constant/string:value="Scanning...") OUT -> IN lcd
+
+#Continuously scan devices
+timer_scan OUT -> SCAN scanner
+scanner DEVICE_ID -> ADD_DEVICE_ID temperature_pool
+
+#Keep cicling information of known devices
+timer_display OUT -> TICK temperature_pool
+
+#Prepare normal information
+temperature_pool OUT_NAME -> IN[0] normal_msg
+temperature_pool OUT_TEMPERATURE -> IN _(converter/float-to-string) OUT -> IN[2] normal_msg
+
+#Prepare error information
+temperature_pool OUT_NAME -> IN[1] error_msg
+
+#Decides if shows a normal message or an error one
+temperature_pool OUT_FAILURE -> IN failure(boolean/filter)
+failure TRUE -> IN error_screen(converter/empty-to-int:output_value=1) OUT -> IN_PORT msg_switcher
+failure FALSE -> IN normal_screen(converter/empty-to-int:output_value=0) OUT -> IN_PORT msg_switcher
+msg_switcher OUT[0] -> IN lcd
+
+#Turn Led on on failure, stops timer_display and start buzzer
+#If not on failure, do the opposite.
+temperature_pool OUT_FAILURE -> IN led
+temperature_pool OUT_FAILURE -> IN _(boolean/not) OUT -> ENABLED timer_display
+#temperature_pool OUT_FAILURE -> ENABLED buzzer
+
+#Buttons have three states: 0 - Disabled, 1 - On error screen, 2 - On selector screen
+#On failure, enable state 1
+failure TRUE -> IN btn_state1(converter/empty-to-int:output_value=1)
+btn_state1 OUT -> OUT_PORT btn1
+btn_state1 OUT -> OUT_PORT btn2
+
+#If choose 'To report supervisors', enable state 2
+btn2 OUT[1] -> IN btn_state2(converter/empty-to-int:output_value=2)
+btn_state2 OUT -> OUT_PORT btn1
+btn_state2 OUT -> OUT_PORT btn2
+
+#Btn1 act as 'dismiss' on state 1
+btn1 OUT[1] -> IN dismiss(converter/empty-to-boolean:output_value=true)
+dismiss OUT -> IN _(boolean/not) OUT -> SET_FAILURE temperature_pool
+dismiss OUT -> ENABLED timer_display
+dismiss OUT -> IN _(converter/empty-to-string:output_value="Dismissed") OUT -> IN lcd
+dismiss OUT -> IN btn_state0(converter/empty-to-int:output_value=0)
+btn_state0 OUT -> OUT_PORT btn1
+btn_state0 OUT -> OUT_PORT btn2
+
+#Btn2 activated, show a list of 'supervisors'
+btn2 OUT[1] -> IN supervisors_screen(converter/empty-to-int:output_value=2) OUT -> IN_PORT msg_switcher
+
+#Buttons now control form/selector
+btn1 OUT[2] -> SELECT supervisor_selector
+btn2 OUT[2] -> NEXT supervisor_selector
+
+#If '--Cancel' was the chosen item, go back to state 2 (error screen)
+supervisor_selector SELECTED -> IN str_sw(string/starts-with:prefix="--")
+str_sw OUT -> IN canceled(boolean/filter)
+canceled TRUE -> IN btn_state1
+canceled TRUE -> IN error_screen
+
+#If a name was chosen, dismiss error msg
+canceled FALSE -> IN dismiss
+
+#Server nodes
+#TODO enable other servers than dummy, that run on different devices.
+DECLARE=Server:fbp:server-dummy.fbp
+
+server(Server)
