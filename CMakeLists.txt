@@ -60,3 +60,4 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(SOLETTA REQUIRED soletta)
 
 add_subdirectory(foosball)
+add_subdirectory(factory-monitor)
