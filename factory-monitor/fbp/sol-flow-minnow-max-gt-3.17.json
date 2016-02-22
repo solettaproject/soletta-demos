@@ -1,0 +1,57 @@
+{
+ "$schema": "http://solettaproject.github.io/soletta/schemas/config.schema",
+ "nodetypes": [
+  {
+   "name": "Display",
+   "options": {
+    "bus": 0
+   },
+   "type": "console"
+  },
+  {
+   "name": "Led",
+   "options":
+   {
+    "pin": "472",
+    "raw": true
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "Btn1",
+   "options":
+   {
+    "active_low": true,
+    "edge_falling": true,
+    "edge_rising": true,
+    "pin": "473",
+    "raw": true
+   },
+   "type": "gpio/reader"
+  },
+  {
+   "name": "Btn2",
+   "options":
+   {
+    "active_low": true,
+    "edge_falling": true,
+    "edge_rising": true,
+    "pin": "475 ",
+    "raw": true
+   },
+   "type": "gpio/reader"
+  },
+  {
+   "name": "BtnFailure",
+   "options":
+   {
+    "active_low": true,
+    "edge_falling": true,
+    "edge_rising": true,
+    "pin": "474",
+    "raw": true
+   },
+   "type": "gpio/reader"
+  }
+ ]
+}
