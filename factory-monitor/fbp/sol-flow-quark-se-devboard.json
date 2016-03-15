@@ -1,0 +1,72 @@
+{
+ "$schema": "http://solettaproject.github.io/soletta/schemas/config.schema",
+ "nodetypes": [
+  {
+   "name": "Display",
+   "options": {
+    "bus": 0
+   },
+   "type": "grove/lcd-string"
+  },
+  {
+   "name": "Led",
+   "options":
+   {
+    "active_low": false,
+    "pin": "25"
+   },
+   "type": "gpio/writer"
+  },
+  {
+   "name": "Btn1",
+   "options":
+   {
+    "active_low": false,
+    "edge_falling": true,
+    "edge_rising": true,
+    "pin": "15"
+   },
+   "type": "gpio/reader"
+  },
+  {
+   "name": "Btn2",
+   "options":
+   {
+    "active_low": false,
+    "edge_falling": true,
+    "edge_rising": true,
+    "pin": "17"
+   },
+   "type": "gpio/reader"
+  },
+  {
+   "name": "BtnFailure",
+   "options":
+   {
+    "active_low": false,
+    "edge_falling": true,
+    "edge_rising": true,
+    "pin": "19"
+   },
+   "type": "gpio/reader"
+  },
+  {
+   "name": "Buzzer",
+   "options":
+   {
+    "raw": true,
+    "pin": "0 0",
+    "tune": "ccggaa|111122|300"
+   },
+   "type": "piezo-speaker/sound"
+  },
+  {
+   "name": "TemperatureSensor",
+   "options":
+   {
+    "i2c_bus": 0
+   },
+   "type": "stts751/temperature"
+  }
+ ]
+}

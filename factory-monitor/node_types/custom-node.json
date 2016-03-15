@@ -1,0 +1,159 @@
+{
+   "$schema": "http://solettaproject.github.io/soletta/schemas/node-type-genspec.schema",
+   "name": "server-pool",
+   "meta": {
+      "author": "Intel Corporation",
+      "license": "BSD-3-Clause",
+      "version": "1"
+   },
+   "types": [
+      {
+         "category": "internal",
+         "description": "Controler for custom node. Shall keep a list of N servers, continuously ask their status, etc",
+         "in_ports": [
+            {
+               "description": "Failure state",
+               "name": "SET_FAILURE",
+               "methods": {
+                  "process": "process_failure"
+               },
+               "data_type": "boolean"
+            },
+            {
+               "description": "Current sensed Temperature",
+               "name": "IN_TEMPERATURE",
+               "methods": {
+                  "process": "internal_process_temperature"
+               },
+               "data_type": "float"
+            },
+            {
+               "description": "Friendly device name (e.g. Kitchen Temperature)",
+               "name": "IN_NAME",
+               "methods": {
+                  "process": "internal_process_name"
+               },
+               "data_type": "string"
+            },
+            {
+               "description": "Failure state",
+               "name": "IN_FAILURE",
+               "methods": {
+                  "process": "internal_process_failure"
+               },
+               "data_type": "boolean"
+            },
+            {
+               "description": "Each packet received on this port sends next server information to output ports",
+               "name": "TICK",
+               "methods": {
+                  "process": "process_tick"
+               },
+               "data_type": "any"
+            },
+            {
+               "description": "Add device id to be observed.",
+               "name": "ADD_DEVICE_ID",
+               "methods": {
+                  "process": "add_device_id_process"
+               },
+               "data_type": "string"
+            }
+         ],
+         "methods": {
+            "open": "internal_open",
+            "close": "internal_close"
+         },
+         "name": "custom-node/server-pool-controller",
+         "out_ports": [
+            {
+               "description": "Send DEVICE_ID packet to set client device id",
+               "name": "SET_DEVICE_ID",
+               "data_type": "string"
+            },
+            {
+               "description": "Send failure packet to current server",
+               "name": "SET_FAILURE",
+               "data_type": "boolean"
+            },
+            {
+                "description": "Id of current server, from where cames current temperature, etc.",
+                "name": "DEVICE_ID",
+                "data_type": "string"
+            },
+            {
+                "description": "Current sensed Temperature",
+                "name": "OUT_TEMPERATURE",
+                "data_type": "float"
+            },
+            {
+                "description": "Friendly device name (e.g. Kitchen Temperature)",
+                "name": "OUT_NAME",
+                "data_type": "string"
+            },
+            {
+               "description": "Send failure packet to current server",
+               "name": "OUT_FAILURE",
+               "data_type": "boolean"
+            }
+         ],
+         "private_data_type": "internal_data"
+      },
+      {
+         "category": "custom",
+         "description": "Custom node. Shall keep a list of N servers, continuously ask their status, etc",
+         "in_ports": [
+            {
+               "description": "Failure state",
+               "name": "SET_FAILURE",
+               "methods": {
+                  "process": "process_failure"
+               },
+               "data_type": "boolean"
+            },
+            {
+               "description": "Each packet received on this port sends next server information to output ports",
+               "name": "TICK",
+               "methods": {
+                  "process": "process_tick"
+               },
+               "data_type": "any"
+            },
+            {
+               "description": "Add device id to be observed.",
+               "name": "ADD_DEVICE_ID",
+               "methods": {
+                  "process": "add_device_id_process"
+               },
+               "data_type": "string"
+            }
+         ],
+         "methods": {
+            "init_type": "custom_init_type"
+         },
+         "name": "custom-node/server-pool",
+         "out_ports": [
+            {
+                "description": "Send packets with IDs for all servers that respond to scan request. Such IDs can be used to connect to a client to a different server through input port DEVICE_ID",
+                "name": "DEVICE_ID",
+                "data_type": "string"
+            },
+            {
+                "description": "Current sensed Temperature",
+                "name": "OUT_TEMPERATURE",
+                "data_type": "float"
+            },
+            {
+                "description": "Friendly device name (e.g. Kitchen Temperature)",
+                "name": "OUT_NAME",
+                "data_type": "string"
+            },
+            {
+               "description": "Send failure packet to current server",
+               "name": "OUT_FAILURE",
+               "data_type": "boolean"
+            }
+         ]
+      }
+   ]
+}
