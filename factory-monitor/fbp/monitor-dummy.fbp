@@ -25,9 +25,9 @@ monitor_temperature(monitor/server-temperature)
 monitor_name(constant/string:value="Thermometer")
 btn_failure(BtnFailure)
 
-monitor_name OUT -> IN_NAME monitor_temperature
+monitor_name OUT -> NAME monitor_temperature
 
 monitor_timer OUT -> INC monitor_accumulator
-monitor_accumulator OUT -> IN _(converter/int-to-float) OUT -> IN_TEMPERATURE monitor_temperature
+monitor_accumulator OUT -> IN _(converter/int-to-float) OUT -> TEMPERATURE monitor_temperature
 
-btn_failure OUT -> IN _(boolean/filter) TRUE -> IN_FAILURE monitor_temperature
+btn_failure OUT -> IN _(boolean/filter) TRUE -> FAILURE monitor_temperature
