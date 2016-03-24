@@ -29,9 +29,9 @@ monitor_temperature(monitor/server-temperature)
 monitor_name(constant/string:value="Thermometer")
 btn_failure(BtnFailure)
 
-monitor_name OUT -> IN_NAME monitor_temperature
+monitor_name OUT -> NAME monitor_temperature
 
 monitor_timer OUT -> TICK temperature_sensor
-temperature_sensor KELVIN -> KELVIN _(temperature/converter) CELSIUS -> IN_TEMPERATURE monitor_temperature
+temperature_sensor KELVIN -> KELVIN _(temperature/converter) CELSIUS -> TEMPERATURE monitor_temperature
 
-btn_failure OUT -> IN _(boolean/filter) TRUE -> IN_FAILURE monitor_temperature
+btn_failure OUT -> IN _(boolean/filter) TRUE -> FAILURE monitor_temperature
