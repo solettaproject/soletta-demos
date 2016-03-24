@@ -58,7 +58,7 @@ ResetTimer OUT -> IN TimerState
 TimerState OUT -> ENABLED ResetTimer
 TimerState OUT -> PULSE_IF_FALSE Reset
 
-RedScore SCORE -> IN_P1_SCORE ScoreBoard
-YellowScore SCORE -> IN_P2_SCORE ScoreBoard
-RedWon OUT -> IN_P1_WIN ScoreBoard
-YellowWon OUT -> IN_P2_WIN ScoreBoard
+RedScore SCORE -> P1_SCORE ScoreBoard
+YellowScore SCORE -> P2_SCORE ScoreBoard
+RedWon OUT -> P1_WIN ScoreBoard
+YellowWon OUT -> P2_WIN ScoreBoard

@@ -40,10 +40,10 @@ InitialScore OUT -> IN[1] ScoreSwitcher
 InitialState OUT -> IN RedWin
 InitialState OUT -> IN YellowWin
 
-ScoreBoard OUT_P1_SCORE -> IN[0] ScoreSwitcher
-ScoreBoard OUT_P2_SCORE -> IN[1] ScoreSwitcher
-ScoreBoard OUT_P1_WIN -> IN RedWin
-ScoreBoard OUT_P2_WIN -> IN YellowWin
+ScoreBoard P1_SCORE -> IN[0] ScoreSwitcher
+ScoreBoard P2_SCORE -> IN[1] ScoreSwitcher
+ScoreBoard P1_WIN -> IN RedWin
+ScoreBoard P2_WIN -> IN YellowWin
 
 ScoreSwitcher OUT[0] -> VALUE Score
 
