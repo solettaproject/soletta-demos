@@ -3,9 +3,6 @@
  "nodetypes": [
   {
    "name": "Display",
-   "options": {
-    "bus": 0
-   },
    "type": "console"
   },
   {
