@@ -286,7 +286,7 @@ static void
 custom_pool_new_type(const struct sol_flow_node_type **current)
 {
     struct sol_flow_node_type *type;
-    const struct sol_flow_node_type *oic_client;
+    const struct sol_flow_node_type **oic_client, **controller;
 
     static struct sol_flow_static_node_spec nodes[] = {
         { NULL, "custom-controller", NULL },
@@ -337,9 +337,15 @@ custom_pool_new_type(const struct sol_flow_node_type **current)
         *current = NULL;
         return;
     }
+    if ((*oic_client)->init_type)
+        (*oic_client)->init_type();
 
-    nodes[0].type = SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER;
-    nodes[1].type = oic_client;
+    controller = &SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER;
+    if ((*controller)->init_type)
+        (*controller)->init_type();
+
+    nodes[0].type = *controller;
+    nodes[1].type = *oic_client;
 
     type = sol_flow_static_new_type(&spec);
     SOL_NULL_CHECK(type);
