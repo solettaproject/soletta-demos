@@ -21,7 +21,7 @@
             },
             {
                "description": "Current sensed Temperature",
-               "name": "IN_TEMPERATURE",
+               "name": "TEMPERATURE",
                "methods": {
                   "process": "internal_process_temperature"
                },
@@ -29,7 +29,7 @@
             },
             {
                "description": "Friendly device name (e.g. Kitchen Temperature)",
-               "name": "IN_NAME",
+               "name": "NAME",
                "methods": {
                   "process": "internal_process_name"
                },
@@ -37,7 +37,7 @@
             },
             {
                "description": "Failure state",
-               "name": "IN_FAILURE",
+               "name": "FAILURE",
                "methods": {
                   "process": "internal_process_failure"
                },
@@ -83,17 +83,17 @@
             },
             {
                 "description": "Current sensed Temperature",
-                "name": "OUT_TEMPERATURE",
+                "name": "TEMPERATURE",
                 "data_type": "float"
             },
             {
                 "description": "Friendly device name (e.g. Kitchen Temperature)",
-                "name": "OUT_NAME",
+                "name": "NAME",
                 "data_type": "string"
             },
             {
                "description": "Send failure packet to current monitor",
-               "name": "OUT_FAILURE",
+               "name": "FAILURE",
                "data_type": "boolean"
             }
          ],
@@ -140,17 +140,17 @@
             },
             {
                 "description": "Current sensed Temperature",
-                "name": "OUT_TEMPERATURE",
+                "name": "TEMPERATURE",
                 "data_type": "float"
             },
             {
                 "description": "Friendly device name (e.g. Kitchen Temperature)",
-                "name": "OUT_NAME",
+                "name": "NAME",
                 "data_type": "string"
             },
             {
                "description": "Send failure packet to current monitor",
-               "name": "OUT_FAILURE",
+               "name": "FAILURE",
                "data_type": "boolean"
             }
          ],

@@ -94,23 +94,23 @@ scanner DEVICE_ID -> ADD_DEVICE_ID temperature_pool
 timer_display OUT -> TICK temperature_pool
 
 #Prepare normal information
-temperature_pool OUT_NAME -> IN[0] normal_msg
-temperature_pool OUT_TEMPERATURE -> IN _(converter/float-to-string) OUT -> IN[2] normal_msg
+temperature_pool NAME -> IN[0] normal_msg
+temperature_pool TEMPERATURE -> IN _(converter/float-to-string) OUT -> IN[2] normal_msg
 
 #Prepare error information
-temperature_pool OUT_NAME -> IN[1] error_msg
+temperature_pool NAME -> IN[1] error_msg
 
 #Decides if shows a normal message or an error one
-temperature_pool OUT_FAILURE -> IN failure(boolean/filter)
+temperature_pool FAILURE -> IN failure(boolean/filter)
 failure TRUE -> IN error_screen(converter/empty-to-int:output_value=1) OUT -> IN_PORT msg_switcher
 failure FALSE -> IN normal_screen(converter/empty-to-int:output_value=0) OUT -> IN_PORT msg_switcher
 msg_switcher OUT[0] -> IN lcd
 
 #Turn Led on on failure, stops timer_display and start buzzer
 #If not on failure, do the opposite.
-temperature_pool OUT_FAILURE -> IN led
-temperature_pool OUT_FAILURE -> IN _(boolean/not) OUT -> ENABLED timer_display
-#temperature_pool OUT_FAILURE -> ENABLED buzzer
+temperature_pool FAILURE -> IN led
+temperature_pool FAILURE -> IN _(boolean/not) OUT -> ENABLED timer_display
+#temperature_pool FAILURE -> ENABLED buzzer
 
 #Buttons have three states: 0 - Disabled, 1 - On error screen, 2 - On selector screen
 #On failure, enable state 1
