@@ -128,7 +128,7 @@ internal_process_failure(struct sol_flow_node *node, void *data, uint16_t port, 
      * even without tick, because timer was stopped */
     if (resource->failure && !in_value) {
         sol_flow_send_boolean_packet(node,
-            SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_FAILURE,
+            SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__FAILURE,
             in_value);
     }
     if (resource->reset_failure) {
@@ -220,11 +220,11 @@ process_tick(struct sol_flow_node *node, void *data, uint16_t port, uint16_t con
     sol_flow_send_string_packet(node,
         SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__DEVICE_ID, resource->device_id);
     sol_flow_send_string_packet(node,
-        SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_NAME, resource->name);
+        SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__NAME, resource->name);
     sol_flow_send_boolean_packet(node,
-        SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_FAILURE, resource->failure);
+        SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__FAILURE, resource->failure);
     sol_flow_send_drange_value_packet(node,
-        SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_TEMPERATURE,
+        SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__TEMPERATURE,
         resource->temperature);
 
     return 0;
@@ -296,25 +296,25 @@ custom_pool_new_type(const struct sol_flow_node_type **current)
 
     /**
      * Remember: SET_FAILURE port will send a message to monitor about failure;
-     *           OUT_FAILURE port will send locally current status, like
-     *           OUT_TEMPERATURE.
+     *           FAILURE port will send locally current status, like
+     *           TEMPERATURE.
      */
     static const struct sol_flow_static_conn_spec conns[] = {
         { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__SET_DEVICE_ID, 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__IN__DEVICE_ID },
         { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__SET_FAILURE, 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__IN__FAILURE },
 
-        { 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__OUT__FAILURE, 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__IN__IN_FAILURE },
-        { 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__OUT__TEMPERATURE, 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__IN__IN_TEMPERATURE },
-        { 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__OUT__NAME, 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__IN__IN_NAME },
+        { 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__OUT__FAILURE, 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__IN__FAILURE },
+        { 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__OUT__TEMPERATURE, 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__IN__TEMPERATURE },
+        { 1, SOL_FLOW_NODE_TYPE_MONITOR_CLIENT_TEMPERATURE__OUT__NAME, 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__IN__NAME },
 
         SOL_FLOW_STATIC_CONN_SPEC_GUARD
     };
 
     static const struct sol_flow_static_port_spec exported_out[] = {
         { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__DEVICE_ID},
-        { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_TEMPERATURE},
-        { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_NAME},
-        { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__OUT_FAILURE},
+        { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__TEMPERATURE},
+        { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__NAME},
+        { 0, SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__FAILURE},
         SOL_FLOW_STATIC_PORT_SPEC_GUARD
     };
 
