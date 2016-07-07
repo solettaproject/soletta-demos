@@ -34,7 +34,7 @@ add_custom_command(OUTPUT ${SCORE_COUNTER_C}
 # OUTPUT ${SCORE_COUNTER_GEN_H} ${SCORE_COUNTER_GEN_C}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${STAGE_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${MODULES_DIR}
-  COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-oic-gen.py --schema-dir=${CMAKE_CURRENT_SOURCE_DIR}/node_types --node-type-json=${SCORE_COUNTER_JSON}  --node-type-impl=${SCORE_COUNTER_C} --node-type-gen-c=${SCORE_COUNTER_GEN_C} --node-type-gen-h=${SCORE_COUNTER_GEN_H}
+  COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-oic-gen.py --node-type-json=${SCORE_COUNTER_JSON}  --node-type-impl=${SCORE_COUNTER_C} --node-type-gen-c=${SCORE_COUNTER_GEN_C} --node-type-gen-h=${SCORE_COUNTER_GEN_H} ${CMAKE_CURRENT_SOURCE_DIR}/node_types
   COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-flow-node-type-validate.py ${CMAKE_FIND_ROOT_PATH}/${SCHEMA_PATH} ${SCORE_COUNTER_JSON}
   COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-flow-node-type-gen.py --prefix=sol-flow-node-type --genspec-schema=${CMAKE_FIND_ROOT_PATH}/${SCHEMA_PATH} ${SCORE_COUNTER_JSON} ${SCORE_COUNTER_GEN_H} ${SCORE_COUNTER_GEN_C} ${MODULES_DIR}/score_counter.json
   DEPENDS ${SCORE_COUNTER_RESOURCE}

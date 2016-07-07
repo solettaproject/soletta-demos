@@ -39,7 +39,7 @@ add_custom_command(OUTPUT ${MONITOR_C} ${MONITOR_GEN_C} ${MONITOR_GEN_H} ${MONIT
     DEPENDS ${MONITOR_RESOURCE}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${STAGE_DIR}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${MODULES_DIR}
-    COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-oic-gen.py --schema-dir=${NODE_TYPES_DIR} --node-type-json=${MONITOR_JSON} --node-type-impl=${MONITOR_C} --node-type-gen-c=${MONITOR_GEN_C} --node-type-gen-h=${MONITOR_GEN_H}
+    COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-oic-gen.py --node-type-json=${MONITOR_JSON} --node-type-impl=${MONITOR_C} --node-type-gen-c=${MONITOR_GEN_C} --node-type-gen-h=${MONITOR_GEN_H} ${NODE_TYPES_DIR}
     COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-flow-node-type-validate.py ${CMAKE_FIND_ROOT_PATH}/${SCHEMA_PATH} ${MONITOR_JSON}
     COMMAND ${CMAKE_FIND_ROOT_PATH}/${SOLETTA_PREFIX}/bin/sol-flow-node-type-gen.py --prefix=sol-flow-node-type --genspec-schema=${CMAKE_FIND_ROOT_PATH}/${SCHEMA_PATH} ${MONITOR_JSON} ${MONITOR_GEN_H} ${MONITOR_GEN_C} ${MONITOR_GEN_JSON}
     )
