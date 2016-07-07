@@ -118,7 +118,7 @@ internal_process_failure(struct sol_flow_node *node, void *data, uint16_t port, 
     bool in_value;
     int r;
 
-    r = sol_flow_packet_get_boolean(packet, &in_value);
+    r = sol_flow_packet_get_bool(packet, &in_value);
     SOL_INT_CHECK(r, < 0, r);
 
     resource = sol_vector_get(&mdata->resources, mdata->fetch_idx);
@@ -127,12 +127,12 @@ internal_process_failure(struct sol_flow_node *node, void *data, uint16_t port, 
     /* If previously on failure state and not anymore, we send packet
      * even without tick, because timer was stopped */
     if (resource->failure && !in_value) {
-        sol_flow_send_boolean_packet(node,
+        sol_flow_send_bool_packet(node,
             SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__FAILURE,
             in_value);
     }
     if (resource->reset_failure) {
-        sol_flow_send_boolean_packet(node,
+        sol_flow_send_bool_packet(node,
             SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__SET_FAILURE,
             false);
         resource->reset_failure = false;
@@ -221,7 +221,7 @@ process_tick(struct sol_flow_node *node, void *data, uint16_t port, uint16_t con
         SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__DEVICE_ID, resource->device_id);
     sol_flow_send_string_packet(node,
         SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__NAME, resource->name);
-    sol_flow_send_boolean_packet(node,
+    sol_flow_send_bool_packet(node,
         SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__FAILURE, resource->failure);
     sol_flow_send_drange_value_packet(node,
         SOL_FLOW_NODE_TYPE_CUSTOM_NODE_MONITOR_POOL_CONTROLLER__OUT__TEMPERATURE,
@@ -238,7 +238,7 @@ process_failure(struct sol_flow_node *node, void *data, uint16_t port, uint16_t 
     bool in_value;
     struct resource_data *resource;
 
-    r = sol_flow_packet_get_boolean(packet, &in_value);
+    r = sol_flow_packet_get_bool(packet, &in_value);
     SOL_INT_CHECK(r, < 0, r);
 
     resource = sol_vector_get(&mdata->resources, mdata->current_idx);
