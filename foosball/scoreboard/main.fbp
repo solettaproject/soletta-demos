@@ -32,6 +32,9 @@ Score(ScoreLed)
 ScoreSwitcher(switcher/int:keep_state=true)
 RedWin(RedWinLed)
 YellowWin(YellowWinLed)
+P1Sound(piezo-speaker:tune="aabbccdd")
+P2Sound(piezo-speaker:tune="aabbccdd")
+
 RedTrans(RedTransistor)
 YellowTrans(YellowTransistor)
 
@@ -44,6 +47,9 @@ ScoreBoard P1_SCORE -> IN[0] ScoreSwitcher
 ScoreBoard P2_SCORE -> IN[1] ScoreSwitcher
 ScoreBoard P1_WIN -> IN RedWin
 ScoreBoard P2_WIN -> IN YellowWin
+ScoreBoard P1_WIN -> ENABLED P1Sound
+ScoreBoard P2_WIN -> ENABLED P2Sound
+
 
 ScoreSwitcher OUT[0] -> VALUE Score
 

@@ -25,5 +25,10 @@
     }
   },
   "type": "object",
+  "allOf": [
+   {"$ref": "oic.core.json#/definitions/oic.core"},
+   {"$ref": "oic.baseResource.json#/definitions/oic.r.baseresource"},
+   {"$ref": "#/definitions/oic.r.foosball"}
+  ],
   "required": [ "p1_score", "p2_score", "p1_win", "p2_win" ]
 }
