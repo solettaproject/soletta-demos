@@ -30,7 +30,7 @@ Max(GoalsMax)
 
 ResetButton(MainResetButton)
 
-ScoreBoard(score-counter/client-score-counter:device_id="666a3d6a9d194a23b90a24573558d2f4")
+ScoreBoard(score-counter/client-score-counter:device_id="580a3d6a9d194a23b90a24573558d2f4")
 Reset(converter/boolean-to-empty)
 ResetWon(boolean/filter)
 ResetTimer(timer:interval=3000)
